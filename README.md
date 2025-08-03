@@ -1,6 +1,6 @@
 # Tax Calculator for Tax Class 1
 
-This program calculates monthly tax deductions for individuals in **Tax Class 1** in Germany. It includes only **social security contributions** and **income tax** in its calculations — **church tax** and **solidarity surcharge** are **not** considered.
+This program calculates monthly tax deductions for individuals in **Tax Class 1** working in West Germany. It includes only **social security contributions** and **income tax** in its calculations — **church tax** and **solidarity surcharge** are **not** considered.
 
 The calculator is designed specifically for the **2024 tax year**, using the official contribution caps and percentages in effect for that year. These values are defined in the `constants.py` file. Using this program for any other tax year may lead to inaccurate results.
 
