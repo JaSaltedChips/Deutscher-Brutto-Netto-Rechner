@@ -19,6 +19,9 @@ def calculate_contribution(name: str, base: float) -> Contribution:
     employee = base * rate["employee"] / 100
     return Contribution(base, total, employer, employee)
 
+# Source:
+# 1. https://www.tk.de/firmenkunden/service/fachthemen/fachthema-beitraege/sv-rechengroessen-2024-2158154
+# 2. https://www.lohn-info.de/sozialversicherungsbeitraege2024.html
 def calculate_social_contribution(monthly_salary: float) -> Dict[str, Contribution]:
     """
     Calculate all statutory social security contributions for a given gross monthly salary.

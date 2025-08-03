@@ -1,8 +1,10 @@
+# Source: https://www.tk.de/firmenkunden/service/fachthemen/fachthema-beitraege/sv-rechengroessen-2024-2158154
 # Annual income thresholds (2024)
 PENSION_INSURANCE_CAP = 7550.00        # Max monthly income for pension contributions (West Germany)
 HEALTH_INSURANCE_CAP = 5175.00         # Max monthly income for health insurance contributions
 BASIC_ALLOWANCE = 11784.00             # Grundfreibetrag (basic tax-free allowance)
 
+# Source: https://www.lohn-info.de/sozialversicherungsbeitraege2024.html
 # Social security contribution rates (2024) for 30+ year employee, in percentage
 CONTRIBUTION_RATES = {
     "krankenversicherung": {"total": 14.6, "employer": 7.3, "employee": 7.3},
