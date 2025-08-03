@@ -17,7 +17,6 @@ def main():
 
         # Output summary
         output(monthly_salary, monthly_tax, contributions)
-        export_markdown_payslip_textblock(monthly_salary, monthly_tax, contributions)
      
     except ValueError:
         print("Invalid input. Please enter a valid numeric salary.")
