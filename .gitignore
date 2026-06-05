@@ -1,22 +1,3 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
-# Virtual environments
-.venv/
-venv/
-
-# Distribution / packaging
+out/
 build/
-dist/
-*.egg-info/
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# PDF reports or exports
-*.pdf
-
-# VSCode settings (optional)
-.vscode/
-
+Release/
