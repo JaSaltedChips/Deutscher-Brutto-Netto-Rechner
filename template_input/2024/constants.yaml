@@ -1,0 +1,111 @@
+# =============================================================================
+# constants.yaml — Template for 2024
+# Year-specific tax and social-insurance parameters.
+# Copy this file to input/<year>/constants.yaml and verify all values against
+# the official sources listed below before use.
+#
+# Sources:
+#   BMF (§32a EStG tariff, Soli):  https://www.bundesfinanzministerium.de
+#   GKV-Spitzenverband (KV/PV):    https://www.gkv-spitzenverband.de
+#   Deutsche Rentenversicherung:   https://www.deutsche-rentenversicherung.de
+# =============================================================================
+
+jahr: 2024
+
+# -----------------------------------------------------------------------------
+# §32a EStG Einkommensteuertarif 2024
+#
+# Zones (zvE = annual taxable income):
+#   Zone 1: zvE <= 11.604             -> ESt = 0
+#   Zone 2: 11.604 < zvE <= 17.005   -> progressive formula (y)
+#   Zone 3: 17.005 < zvE <= 66.760   -> progressive formula (z)
+#   Zone 4: 66.760 < zvE <= 277.825  -> 42 % linear
+#   Zone 5: zvE > 277.825            -> 45 % linear
+# -----------------------------------------------------------------------------
+tarif:
+  grundfreibetrag: 11604              # Zone 1 upper bound
+
+  zone2:
+    upper: 17005                      # Zone 2 upper bound
+    a: 979.18                         # Progression factor a
+    b: 1400                           # Linear factor b
+    # Formula: y = (zvE - 11604) / 10000
+    #          ESt = (a * y + b) * y
+
+  zone3:
+    upper: 66760                      # Zone 3 upper bound
+    a: 192.59                         # Progression factor a
+    b: 2397                           # Linear factor b
+    c: 966.53                         # Constant
+    # Formula: z = (zvE - 17005) / 10000
+    #          ESt = (a * z + b) * z + c
+
+  zone4:
+    upper: 277825                     # Zone 4 upper bound
+    rate: 0.42                        # 42 %
+    constant: 10602.13                # Deduction amount
+    # Formula: ESt = 0.42 * zvE - 10602.13
+
+  zone5:
+    rate: 0.45                        # 45 %
+    constant: 18936.88                # Deduction amount
+    # Formula: ESt = 0.45 * zvE - 18936.88
+
+# -----------------------------------------------------------------------------
+# Solidaritaetszuschlag 2024
+# -----------------------------------------------------------------------------
+soli:
+  rate: 0.055                         # 5.5 % on Lohnsteuer
+  freigrenze_stkl_I: 18130            # Annual LSt threshold — Steuerklasse I
+  freigrenze_stkl_III: 36260          # Annual LSt threshold — Steuerklasse III
+  milderungs_rate: 0.119              # Max. Soli in the tapering zone (11.9 %)
+
+# -----------------------------------------------------------------------------
+# Kirchensteuer
+# -----------------------------------------------------------------------------
+kirchensteuer:
+  baden_wuerttemberg: 0.08            # 8 % in BW and BY
+  bayern: 0.08
+  andere_bundeslaender: 0.09          # 9 % in all other Bundeslaender
+
+# -----------------------------------------------------------------------------
+# Sozialversicherung 2024
+# -----------------------------------------------------------------------------
+sv:
+  # Gesetzliche Krankenversicherung (GKV)
+  kv:
+    allgemein: 0.146                  # 14.6 % allgemeiner Beitragssatz (§241 SGB V)
+    tk_zusatz: 0.0120                 # Zusatzbeitrag of your Krankenkasse (e.g. TK 2024)
+    bbg_monat: 5175.00                # BBG KV/PV monthly (62.100 EUR/year ÷ 12)
+    bbg_jahr: 62100.00                # BBG KV/PV annual
+
+  # Gesetzliche Pflegeversicherung
+  pv:
+    base: 0.034                       # 3.4 % total (1.7 % AN / 1.7 % AG)
+    kinderlosenzuschlag: 0.006        # 0.6 % AN-only surcharge (childless, age >= 23)
+    bbg_monat: 5175.00                # Same BBG as KV
+    bbg_jahr: 62100.00
+
+  # Rentenversicherung
+  rv:
+    rate: 0.186                       # 18.6 % total (9.3 % AN / 9.3 % AG)
+    bbg_monat: 7550.00                # BBG RV West monthly (90.600 EUR/year ÷ 12)
+    bbg_jahr: 90600.00                # BBG RV West annual
+
+  # Arbeitslosenversicherung
+  av:
+    rate: 0.026                       # 2.6 % total (1.3 % AN / 1.3 % AG)
+    bbg_monat: 7550.00                # Same BBG as RV
+    bbg_jahr: 90600.00
+
+# -----------------------------------------------------------------------------
+# Vorsorgepauschale (§39b Abs. 2 EStG)
+# -----------------------------------------------------------------------------
+vorsorgepauschale:
+  use_actual_shares: true             # Use actual AN shares for RV+AV+KV+PV
+
+# -----------------------------------------------------------------------------
+# Sonstiges
+# -----------------------------------------------------------------------------
+sonstiges:
+  monate_pro_jahr: 12

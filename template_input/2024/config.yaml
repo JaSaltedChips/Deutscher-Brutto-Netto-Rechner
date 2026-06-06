@@ -1,0 +1,162 @@
+# =============================================================================
+# config.yaml — Template
+# Employee configuration for the German payroll calculator.
+# Copy this file to input/<year>/config.yaml and fill in your values.
+# =============================================================================
+
+mitarbeiter:
+  vorname: Max                         # First name
+  nachname: Mustermann                 # Last name
+  geburtsjahr: 1990                    # Year of birth (used for PV Kinderlosenzuschlag check)
+  hat_kinder: false                    # true/false — relevant for PV Kinderlosenzuschlag
+  steuerklasse: 1                      # 1–6 (Lohnsteuerklasse)
+  konfession: none                     # none | rk | ev | ... (Kirchensteuer)
+  bundesland: BW                       # Two-letter Bundesland code (BW, BY, BE, ...)
+  krankenkasse: TK                     # Name of statutory health insurer (dokumentarisch)
+  pkv: false                           # true = private health insurance (PKV), false = GKV
+  kinderfreibetrag_zaehler: 0.0        # Kinderfreibetrag numerator for Lohnsteuer
+
+arbeitgeber:
+  name: Muster GmbH                    # Employer name
+  ort: Stuttgart                       # Employer city
+  bundesland: BW                       # Employer Bundesland
+
+jahr: 2024                             # Payroll year
+
+# -----------------------------------------------------------------------------
+# Per-month gross pay figures.
+# Each entry must include all fields; set unused fields to 0.00.
+#
+# brutto_laufend    : Regular monthly gross wage (EUR)
+# sonstige_bezuege  : One-time taxable bonus via Jahresdifferenzmethode,
+#                     e.g. Weihnachtsgeld (EUR)
+# inflationsgeld    : Tax- and SV-free inflation bonus §3 Nr. 11c EStG (EUR)
+# nachverrechnung   : Already-taxed net back-payment; added directly to Netto.
+#                     Positive = additional payment to employee,
+#                     Negative = recovery from employee.
+# geldwerter_vorteil: 92DB benefit-in-kind §37b EStG — SV-liable as EZ,
+#                     but AN-steuerfrei (employer pays flat tax) (EUR)
+# rkvp              : Tax-free travel reimbursement 765L — documentary only,
+#                     no tax or SV effect (EUR)
+# sv_st_anteile     : 92CC SV/ST-Anteile — taxable EZ, netted before payout (EUR)
+# -----------------------------------------------------------------------------
+monate:
+  - monat: 1
+    name: Januar
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 2
+    name: Februar
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 3
+    name: Maerz
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 4
+    name: April
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 5
+    name: Mai
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 6
+    name: Juni
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 7
+    name: Juli
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 8
+    name: August
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 9
+    name: September
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 10
+    name: Oktober
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 11
+    name: November
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00
+
+  - monat: 12
+    name: Dezember
+    brutto_laufend: 0.00
+    sonstige_bezuege: 0.00
+    inflationsgeld: 0.00
+    nachverrechnung: 0.00
+    geldwerter_vorteil: 0.00
+    rkvp: 0.00
+    sv_st_anteile: 0.00

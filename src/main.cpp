@@ -3,8 +3,8 @@
 // --------
 // Entry point for the German payroll calculator.
 //
-// Reads two YAML files:
-//   constants_YYYY.yaml  – tax rates, BBG limits, tariff zones for the year
+// Reads two YAML files from input/<year>/:
+//   constants.yaml       – tax rates, BBG limits, tariff zones for the year
 //   config_<name>.yaml   – employee data and per-month gross/bonus amounts
 //
 // Produces one payslip text file per month and one annual summary, written
@@ -445,10 +445,8 @@ static void run(const std::string& config_path,
 // CLI argument parsing
 // ---------------------------------------------------------------------------
 int main(int argc, char* argv[]) {
-    // Defaults: read the existing Python project's YAML files directly,
-    // write output into ./out relative to the C++ binary.
-    std::string config_path    = "../payroll_software/config_harsha.yaml";
-    std::string constants_path = "../payroll_software/constants_2024.yaml";
+    std::string config_path    = "./input/2024/config_harsha.yaml";
+    std::string constants_path = "./input/2024/constants.yaml";
     std::string out_dir        = "./out";
     int only_month = 0;  // 0 = all months
 
@@ -465,8 +463,8 @@ int main(int argc, char* argv[]) {
         else if (arg == "--help" || arg == "-h") {
             std::cout <<
                 "Usage: payroll_software_cpp [options]\n"
-                "  --config    <path>   Employee YAML config (default: ../payroll_software/config_harsha.yaml)\n"
-                "  --constants <path>   Tax constants YAML  (default: ../payroll_software/constants_2024.yaml)\n"
+                "  --config    <path>   Employee YAML config (default: ./input/2024/config_harsha.yaml)\n"
+                "  --constants <path>   Tax constants YAML  (default: ./input/2024/constants.yaml)\n"
                 "  --out       <dir>    Output directory     (default: ./out)\n"
                 "  --monat     <1..12>  Single month only    (0 = all, default: 0)\n";
             return 0;

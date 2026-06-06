@@ -1,8 +1,8 @@
 # German Payroll Calculator — C++ Implementation
 
-A C++17 port of the Python payroll software that computes monthly German
-payslips (Gehaltsabrechnungen) and an annual summary for a single employee,
-reading the same YAML configuration files as the original Python version.
+A C++17 program that computes monthly German payslips (Gehaltsabrechnungen) and
+an annual summary for a single employee, driven by YAML configuration files
+stored under `input/<year>/`.
 
 ---
 
@@ -81,28 +81,25 @@ a refund or surcharge before filing their Steuererklärung.
 ## Build
 
 ```bash
-# 1. Enter the project directory
-cd payroll_software_cpp
-
-# 2. Create and enter a build directory
+# 1. Create and enter a build directory
 mkdir build
 cd build
 
-# 3. Configure (downloads yaml-cpp on first run — needs internet)
+# 2. Configure (downloads yaml-cpp on first run — needs internet)
 cmake .. -DCMAKE_BUILD_TYPE=Release
 
-# 4. Compile
+# 3. Compile
 cmake --build . --config Release
 ```
 
-The compiled binary is placed in `payroll_software_cpp/Release/` (Windows/MSVC)
-or `payroll_software_cpp/build/` (Linux/macOS with a single-config generator).
+The compiled binary is placed in the project root (`Release/` on Windows/MSVC,
+or the project root on Linux/macOS with a single-config generator).
 
 ---
 
 ## Run
 
-From the `payroll_software_cpp/` directory:
+From the project root directory:
 
 ```bash
 # All 12 months + annual summary (default output: ./out/)
@@ -113,8 +110,8 @@ From the `payroll_software_cpp/` directory:
 
 # Custom paths
 ./Release/payroll_software_cpp.exe \
-    --config    ../payroll_software/config_harsha.yaml \
-    --constants ../payroll_software/constants_2024.yaml \
+    --config    ./input/2024/config_harsha.yaml \
+    --constants ./input/2024/constants.yaml \
     --out       ./out \
     --monat     0
 
@@ -126,8 +123,8 @@ From the `payroll_software_cpp/` directory:
 
 | Option | Short | Default | Description |
 |---|---|---|---|
-| `--config <path>` | `-c` | `../payroll_software/config_harsha.yaml` | Employee YAML config |
-| `--constants <path>` | `-k` | `../payroll_software/constants_2024.yaml` | Tax/SV constants for the year |
+| `--config <path>` | `-c` | `./input/2024/config_harsha.yaml` | Employee YAML config |
+| `--constants <path>` | `-k` | `./input/2024/constants.yaml` | Tax/SV constants for the year |
 | `--out <dir>` | `-o` | `./out` | Output directory (created if absent) |
 | `--monat <1..12>` | `-m` | `0` (all) | Process a single month; `0` = all 12 |
 
@@ -136,16 +133,55 @@ From the `payroll_software_cpp/` directory:
 
 ---
 
+## Getting Started
+
+1. Copy the templates into a local `input/<year>/` directory (gitignored — your
+   personal data never leaves your machine):
+
+   ```bash
+   mkdir -p input/2024
+   cp template_input/2024/config.yaml    input/2024/config.yaml
+   cp template_input/2024/constants.yaml input/2024/constants.yaml
+   ```
+
+2. Fill in `input/2024/config.yaml` with your personal details and per-month
+   gross figures (see [Configuration Files](#configuration-files) below).
+
+3. Verify the rates in `input/2024/constants.yaml` against the official sources
+   for your tax year — the 2024 values are pre-filled.
+
+4. Build and run:
+
+   ```bash
+   mkdir build && cd build
+   cmake .. -DCMAKE_BUILD_TYPE=Release
+   cmake --build . --config Release
+   cd ..
+   ./Release/payroll_software_cpp.exe
+   ```
+
+   Output lands in `out/`.
+
+---
+
 ## Project Structure
 
 ```
-payroll_software_cpp/
-├── CMakeLists.txt          # Build definition; fetches yaml-cpp automatically
-├── README.md               # This file
-├── build/                  # CMake build artefacts (not committed)
-├── Release/                # Compiled binary (Windows/MSVC output)
+Deutscher-Brutto-Netto-Rechner/
+├── CMakeLists.txt              # Build definition; fetches yaml-cpp automatically
+├── README.md                   # This file
+├── template_input/             # Committed templates — no personal data
+│   └── 2024/
+│       ├── config.yaml         # Employee + monthly gross template (all zeros)
+│       └── constants.yaml      # 2024 tax/SV constants with source references
+├── input/                      # Gitignored — your personal YAML files go here
+│   └── 2024/
+│       ├── config.yaml
+│       └── constants.yaml
+├── build/                      # CMake build artefacts (not committed)
+├── Release/                    # Compiled binary (Windows/MSVC output)
 │   └── payroll_software_cpp.exe
-├── out/                    # Generated payslips and summary
+├── out/                        # Generated payslips and summary (not committed)
 │   ├── payslip_2024_01_Januar.txt
 │   ├── ...
 │   └── summary_2024.txt
@@ -162,25 +198,24 @@ payroll_software_cpp/
 
 ## Configuration Files
 
-Both files are shared with the Python project and read directly from
-`../payroll_software/` by default.
+YAML files live under `input/<year>/` (gitignored). Use the templates in
+`template_input/<year>/` as your starting point. To run a different tax year,
+create a new `input/<year>/` directory, copy the templates, and update the
+values accordingly.
 
-### `constants_2024.yaml`
+### `constants.yaml`
 
 Holds all year-specific tax and SV parameters:
 
 - `tarif` — §32a EStG zone boundaries and formula coefficients
 - `soli` — Freigrenze and Milderungszone rates
 - `kirchensteuer` — rates by Bundesland
-- `sv.kv` — KV allgemeiner Beitragssatz, TK Zusatzbeitrag, BBG month/year
+- `sv.kv` — KV allgemeiner Beitragssatz, Zusatzbeitrag of your Krankenkasse, BBG month/year
 - `sv.pv` — PV base rate, Kinderlosenzuschlag, BBG
 - `sv.rv` — RV rate, BBG month/year
 - `sv.av` — AV rate, BBG month/year
 
-To use a different tax year, create a `constants_202X.yaml` with the updated
-values and pass it via `--constants`.
-
-### `config_harsha.yaml`
+### `config.yaml`
 
 Holds employee data and per-month gross figures:
 
@@ -189,26 +224,9 @@ Holds employee data and per-month gross figures:
 - `jahr` — payroll year
 - `monate` — list of 12 entries, each with:
   - `brutto_laufend` — regular monthly wage
-  - `sonstige_bezuege` — one-time payment (e.g. Weihnachtsgeld)
-  - `geldwerter_vorteil` — 92DB benefit-in-kind (SV-EZ, AN-steuerfrei)
-  - `sv_st_anteile` — 92CC taxable EZ netting amount
-  - `inflationsgeld` — tax- and SV-free inflation bonus
-  - `nachverrechnung` — net back-payment (no further tax/SV deduction)
-  - `rkvp` — tax-free travel reimbursement (documentary only)
-
----
-
-## Relationship to the Python Version
-
-This C++ implementation is a direct port of
-`../payroll_software/` and produces numerically identical results, with two
-corrections that were also applied to the Python source:
-
-1. **KV Vorsorgepauschale rate**: uses the *allgemeiner* Beitragssatz 14.6 %
-   (from `constants["sv"]["kv"]["allgemein"]`) instead of the hardcoded
-   ermäßigter 14.0 %. This increases the Vorsorgepauschale and reduces the
-   monthly Lohnsteuer by a few euros.
-
-2. **Monthly LSt rounding**: uses `floor(annual_tax × 100 / 12) / 100`
-   (BMF PAP floor-in-cents) instead of commercial rounding, matching official
-   payroll-software output.
+  - `sonstige_bezuege` — one-time payment (e.g. Weihnachtsgeld), taxed via Jahresdifferenzmethode
+  - `geldwerter_vorteil` — 92DB benefit-in-kind §37b EStG (SV-EZ, AN-steuerfrei)
+  - `sv_st_anteile` — 92CC taxable EZ netting amount (deducted before Netto)
+  - `inflationsgeld` — tax- and SV-free inflation bonus §3 Nr. 11c EStG
+  - `nachverrechnung` — already-taxed net back-payment (added directly to Netto)
+  - `rkvp` — tax-free travel reimbursement 765L (documentary only, no tax/SV effect)
