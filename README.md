@@ -230,3 +230,11 @@ Holds employee data and per-month gross figures:
   - `inflationsgeld` — tax- and SV-free inflation bonus §3 Nr. 11c EStG
   - `nachverrechnung` — already-taxed net back-payment (added directly to Netto)
   - `rkvp` — tax-free travel reimbursement 765L (documentary only, no tax/SV effect)
+
+---
+
+## Further Reading
+
+| Document | Description |
+|---|---|
+| [docs/cmake-build-guide.md](docs/cmake-build-guide.md) | CMake command reference, generator selection, build configurations (Debug / Release / RelWithDebInfo), and a quick-reference cheat sheet |
