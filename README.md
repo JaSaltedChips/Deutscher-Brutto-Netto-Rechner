@@ -209,7 +209,7 @@ Holds all year-specific tax and SV parameters:
 
 - `tarif` — §32a EStG zone boundaries and formula coefficients
 - `soli` — Freigrenze and Milderungszone rates
-- `kirchensteuer` — rates by Bundesland
+- `kirchensteuer` — rates by Bundesland: `baden_wuerttemberg` (8 %, applies to both BW and BY) and `andere_bundeslaender` (9 % for all other states)
 - `sv.kv` — KV allgemeiner Beitragssatz, Zusatzbeitrag of your Krankenkasse, BBG month/year
 - `sv.pv` — PV base rate, Kinderlosenzuschlag, BBG
 - `sv.rv` — RV rate, BBG month/year
@@ -219,7 +219,7 @@ Holds all year-specific tax and SV parameters:
 
 Holds employee data and per-month gross figures:
 
-- `mitarbeiter` — name, Geburtsjahr, Steuerklasse, Konfession, Bundesland, Krankenkasse, hat_kinder
+- `mitarbeiter` — name, Geburtsjahr, Steuerklasse, Konfession, Bundesland, Krankenkasse, hat_kinder; `bundesland` affects only Kirchensteuer rate (BW/BY → 8 %, all others → 9 %) and has no effect when `konfession` is `none`
 - `arbeitgeber` — name, Ort, Bundesland
 - `jahr` — payroll year
 - `monate` — list of 12 entries, each with:
